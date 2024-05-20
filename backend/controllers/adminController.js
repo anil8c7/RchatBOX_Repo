@@ -72,8 +72,6 @@ router.post('/signin', async (req, resp) => {
 
     try {
         if (email != "" && password != "") {
-            const emailExist = await userModel.checkEmailExist(email);
-            if (emailExist) {
                 const user = await userModel.signInUser(email);
                 if (user.length > 0) {
                     const dbpassword = user[0].password;
@@ -81,29 +79,33 @@ router.post('/signin', async (req, resp) => {
                     if (passwordMatch) {
                         let sesssionId = uuidv4();
                         const author = new Authentication;
-                        console.log(sesssionId);
                         const data = {
                             status: 201,
                             message: "User Login Successfully"
                         };
-                        resp.render('admin/signIn', data);
+                        return resp.status(201).json(data);
                     } else {
-                        throw new Error("Password is not matched");
+                        const data = {
+                            status: 201,
+                            message: "Password is not Matched"
+                        };
+                        return resp.status(409).json(data);
                     }
 
                 } else {
-                    throw new Error('User not Exist in DB');
+                    const data = {
+                        status: 201,
+                        message: "USER not exist in database"
+                    };                    
+                    return resp.status(409).json(data);
                 }
-            } else {
-                throw new Error('Email is not Exist');
-            }
         }
     } catch (error) {
         const data = {
             status: 500,
             message: error.message
         };
-        resp.render('admin/signIn', data);
+        return resp.status(500).json(data);
     }
 })
 
