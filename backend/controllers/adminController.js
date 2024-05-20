@@ -6,9 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 const Authentication = require('../services/auth');
 
 
-// router.get('/signup', async (req, resp) => {
-//     resp.render('admin/signUp');
-// })
+
 
 router.post('/signup', async (req, resp) => {
     console.log(req.body);
@@ -69,11 +67,6 @@ function checkEmailValidation(email) {
     }
     return true
 }
-// route for the signIn
-router.get('/signin', async (req, resp) => {
-    resp.render('admin/signIn');
-})
-
 router.post('/signin', async (req, resp) => {
     const { email, password } = req.body;
 
