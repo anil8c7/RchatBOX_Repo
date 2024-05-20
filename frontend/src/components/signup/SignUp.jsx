@@ -22,7 +22,6 @@ const SignUp = () => {
             setMessage(response.data.message);
 
         } catch(error){
-            console.log(error);
             if (error.response) {
                 setMessage(error.response.data.message);
               } else {
