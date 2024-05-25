@@ -31,36 +31,40 @@ const SignUp = () => {
     }
     return (
         <>
-            <div className="signup">
-                <div className="signUpheading">
-                <h2>Signup Form</h2>
-                </div>
-                <div className="signupMainDiv">
-                    <div className="signupform">
-                    <form action="#" method="post" onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="name">Name:</label>
-                            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
+            <div className="signUp">
+                <div className="signUpDiv">
+                    <div className="signUpMainDiv">
+                        <div className="signupform">
+                            <div className="signUpheading">
+                                <h2>Signup Form</h2>
+                            </div>
+                            <form action="#" method="post" onSubmit={handleSubmit}>
+                                <div className="forms-group">
+                                    <label htmlFor="email">Name:</label>
+                                    <input type="text" id="name" name="name" onChange={handleChange} />
+                                </div>
+                                <div className="forms-group">
+                                    <label htmlFor="email">Email:</label>
+                                    <input type="email" id="email" name="email" onChange={handleChange} />
+                                </div>
+                                <div className="forms-group">
+                                    <label htmlFor="password">Password:</label>
+                                    <input type="password" id="password" name="password" autoComplete="" onChange={handleChange} />
+                                </div>
+                                <div className="signUpBtnDiv">
+                                    <button type="submit" className="signUpBtn">Sign Up</button>
+                                </div>
+                                <div className="alreadyAccount">
+                                    <a href="/">Login</a>
+                                </div>
+                            </form>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="email">Email:</label>
-                            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange}  />
+                        <div className="signUpImage">
+                            <img src={process.env.PUBLIC_URL + 'images/signup.jpg'} alt="signUpImage" />
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Password:</label>
-                            <input type="password" id="password" name="password" value={formData.password} onChange={handleChange}  />
-                        </div>
-                        <button type="submit" className="btn">Signup</button>
-                    </form>
                     </div>
-                    {/* <div className="signupimage">
-                        <img src={process.env.PUBLIC_URL + 'images/signup.jpg'} alt="signupimage" />
-                    </div> */}
-                    <div className="alreadyAccount">
-                        <a href="/">Sign In</a>
-                    </div>
-                    {message && <div className="error-message">{message}</div>}
                 </div>
+                {message && <div className="error-message">{message}</div>}
             </div>
         </>
     );
