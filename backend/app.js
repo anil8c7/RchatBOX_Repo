@@ -10,10 +10,8 @@ app.use(express.static('assets'));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use('/', adminRoutes);
 app.use('/users', userRoutes);
-
 const port = config.server.PORT;
 app.listen(port, (err) => {
     if (err) {
