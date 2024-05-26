@@ -2,27 +2,52 @@ import React from "react";
 import "./signup.css";
 import { signup } from "../../Services/apiService";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 const SignUp = () => {
+    const navigate = useNavigate();
     const [message, setMessage] = useState("");
-    // setTimeout(() => {
-    //     setMessage("");
-    // }, 2000);
     const [formData,setFormData] = useState({
         name:'',
         email:'',
         password:''
     });
+    const [errorClass,setErrorClass] = useState("");
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
       };
+      // to validate the form 
+    const validateForm = (formData)=>{  
+        const newErrors ={};
+        if(formData.name ===""){
+            newErrors.name = "name is required"
+        }
+        if(formData.email ===""){
+            newErrors.email = "email is required"
+        }
+        if(formData.password ===""){
+            newErrors.password = "password is required"
+        }
+        return newErrors;
+    }
     const handleSubmit = async (e)=>{
         e.preventDefault();
+        const newError =  validateForm(formData);
+        if(Object.keys(newError).length> 0){
+            setErrorClass(newError);
+            return;
+        }
         try{
             const response = await signup(formData); 
             setMessage(response.data.message);
-
+            if(response.data.status===201){
+                navigate('/');
+            }
         } catch(error){
             if (error.response) {
+                if(error.response.data.status===400){
+                    // setErrorClass("error_msg_req");
+                }
                 setMessage(error.response.data.message);
               } else {
                 setMessage("An unexpected error occurred. Please try again later.");
@@ -41,20 +66,21 @@ const SignUp = () => {
                             <form action="#" method="post" onSubmit={handleSubmit}>
                                 <div className="forms-group">
                                     <label htmlFor="email">Name:</label>
-                                    <input type="text" id="name" name="name" onChange={handleChange} />
+                                    <input type="text" className={errorClass.name ? "error_msg_req":""} id="name" name="name" onChange={handleChange} />
                                 </div>
                                 <div className="forms-group">
                                     <label htmlFor="email">Email:</label>
-                                    <input type="email" id="email" name="email" onChange={handleChange} />
+                                    <input type="email" id="email" className={errorClass.email ? "error_msg_req":""} name="email" onChange={handleChange} />
                                 </div>
                                 <div className="forms-group">
                                     <label htmlFor="password">Password:</label>
-                                    <input type="password" id="password" name="password" autoComplete="" onChange={handleChange} />
+                                    <input type="password" id="password" className={errorClass.password ? "error_msg_req":""} name="password" autoComplete="" onChange={handleChange} />
                                 </div>
                                 <div className="signUpBtnDiv">
                                     <button type="submit" className="signUpBtn">Sign Up</button>
                                 </div>
                                 <div className="alreadyAccount">
+                                    <span>Already have an account </span>
                                     <a href="/">Login</a>
                                 </div>
                             </form>

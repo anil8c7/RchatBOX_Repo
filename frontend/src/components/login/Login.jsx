@@ -2,6 +2,8 @@ import React from "react";
 import "./login.css";
 import { useState } from "react";
 import { signin } from "../../Services/apiService";
+// import { useNavigate } from "react-router-dom";
+
 const Login = () => {
     const [message, setMessage] = useState("");
     const [formData, setFormData] = useState({
@@ -14,8 +16,8 @@ const Login = () => {
             const response = await signin(formData);
             setMessage(response.data.message);
         } catch (error) {
+            console.log(error)
             setMessage(error.response.data.message);
-
         }
     }
     const handleChange = (e) => {
@@ -43,6 +45,7 @@ const Login = () => {
                                     <button type="submit" className="loginBtn">Login</button>
                                 </div>
                                 <div className="alreadyAccount">
+                                    <span>Don't have an account </span>
                                     <a href="/signup">Sign up</a>
                                 </div>
                             </form>

@@ -12,7 +12,7 @@ const signin = async (userData)=>{
     try {
     return await axios.post(`${API_URL}/signin`,userData)
     } catch (error) {
-        
+        throw error;
     }
 }
 export {signup,signin};

@@ -57,6 +57,12 @@ outline: none !important;
 border-bottom: 3px solid green;
 background-color: white;
 }
+.error_msg_req{
+outline: none !important;
+border-bottom: 3px solid red !important;
+background-color: white !important;
+}
+
 
 .signUpBtnDiv{
   width: 90%;
@@ -78,4 +84,7 @@ background-color: white;
 }
 .btn:hover {
   background-color:rgb(193, 162, 84);
+}
+.alreadyAccount{
+  margin-left: 12px;
 }
