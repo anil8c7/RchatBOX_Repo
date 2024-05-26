@@ -14,6 +14,10 @@ const SignUp = () => {
     });
     const [errorClass,setErrorClass] = useState("");
     const handleChange = (e) => {
+        setErrorClass((prevErrors) => ({
+            ...prevErrors,
+            [e.target.name]: '',
+          }));
         setFormData({ ...formData, [e.target.name]: e.target.value });
       };
       // to validate the form 
