@@ -10,7 +10,7 @@ const API_URL =  "http://localhost:3001";
 
 const signin = async (userData)=>{
     try {
-    return await axios.post(`${API_URL}/signin`,userData)
+    return await axios.post(`${API_URL}/signin`,userData,{withCredentials: true})
     } catch (error) {
         throw error;
     }

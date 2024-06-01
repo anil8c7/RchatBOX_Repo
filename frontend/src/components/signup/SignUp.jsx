@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./signup.css";
 import { signup } from "../../Services/apiService";
 import { useState } from "react";
@@ -45,7 +45,9 @@ const SignUp = () => {
             const response = await signup(formData); 
             setMessage(response.data.message);
             if(response.data.status===201){
-                navigate('/');
+                    setTimeout(()=>{
+                        navigate('/');
+                    },2000)
             }
         } catch(error){
             if (error.response) {
