@@ -75,8 +75,13 @@ router.post('/signin', async (req, resp) => {
                 const dbpassword = user[0].password;
                 const passwordMatch = await bcrypt.compare(password, dbpassword);
                 if (passwordMatch) {
-                    // let sesssionId = uuidv4();
-                    // const author = new Authentication;
+                    let sessionId = uuidv4();
+                    const author = new Authentication();
+                    author.setUser(sessionId,user);
+                    // cookie set
+                    resp.setHeader('Content-Type', 'text/html');
+                    resp.cookie('X-uid',sessionId, {httpOnly: true, sameSite: 'none', secure: true,})
+                    resp.setHeader('X-uid',sessionId);
                     const data = {
                         status: 201,
                         message: "User Login Successfully"
@@ -84,9 +89,10 @@ router.post('/signin', async (req, resp) => {
                     return resp.status(201).json(data);
                 } else {
                     const data = {
-                        status: 201,
+                        status: 409,
                         message: "Password is not Matched"
                     };
+
                     return resp.status(409).json(data);
                 }
 
