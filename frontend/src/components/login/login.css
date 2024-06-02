@@ -18,7 +18,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: #ffffff;
-  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px 0px;
     border-radius: 0px 30px 30px 30px;
 }
 .loginForm{
@@ -75,9 +75,10 @@
       border-radius: 40px;
       letter-spacing: 5px;
       font-size: 20px;
+      cursor: pointer;
   }
-  .btn:hover {
-    background-color:rgb(193, 162, 84);
+  .loginBtn:hover {
+    background-color:black;
   }
   .alreadyAccount{
     margin-left: 12px;
