@@ -1,18 +1,17 @@
 import axios from "axios"; 
-const API_URL =  "http://localhost:3001";
- const signup =  async (userData)=>{
+//create the object of axios with baseurl and set the header 
+const client =  axios.create({
+baseURL:"http://localhost:3001",
+header:{
+    'Content-Type':'application/json'
+   }
+})
+ const postData =  async (url,userData)=>{
     try{
-        return await  axios.post(`${API_URL}/signup`,userData)
+        return await client.post(url,userData)
     }catch(error){
         throw error;
     }
 }
 
-const signin = async (userData)=>{
-    try {
-    return await axios.post(`${API_URL}/signin`,userData,{withCredentials: true})
-    } catch (error) {
-        throw error;
-    }
-}
-export {signup,signin};
+export {postData};

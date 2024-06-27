@@ -22,16 +22,20 @@ box-shadow: rgb(38, 57, 77) 0px 20px 30px 0px;
 border-radius: 0px 30px 30px 30px;
 }
 .signupform{
-min-width: 58%;
-margin: auto;
+flex: 1.2;
+padding: 14px;
+box-sizing: border-box; 
 }
 .signUpImage{
+flex: 1;
 display: flex;
+justify-content: center;
 align-items: center;
 }
 .signUpImage img{
-max-width: 100%;
-border-radius: 0 30px 0 32px;
+  width: 100%;
+  max-width: 100%;
+  height: auto;border-radius: 0 30px 0 32px;
 }
 
 h2 {
@@ -50,7 +54,7 @@ h2 {
   border-radius: 7px;
   box-sizing: border-box;
   background-color: white; 
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
 }
 .forms-group input:focus {
 outline: none !important;
@@ -59,7 +63,7 @@ background-color: white;
 }
 .error_msg_req{
 outline: none !important;
-border-bottom: 3px solid red !important;
+border-bottom: 3px solid rgb(238, 5, 5) !important;
 background-color: white !important;
 }
 
@@ -68,6 +72,7 @@ background-color: white !important;
   width: 90%;
   text-align: center;
   padding: 15px;
+  margin-top: 14px;
   margin-bottom: 8px;
 
 }
@@ -75,7 +80,7 @@ background-color: white !important;
     margin: auto;
     width: 40%;
     padding: 12px;
-    background: #f5701b;
+    background: #f96100;
     color: white;
     border: none;
     border-radius: 40px;
@@ -85,7 +90,14 @@ background-color: white !important;
 }
 .signUpBtn:hover {
   background:black;
+  transition: all 0.3s;
 }
 .alreadyAccount{
   margin-left: 12px;
+}
+.alreadyAccount a{
+  text-decoration: none;
+    color: #3b86bd;
+    font-size: medium;
+    font-weight: 600;
 }

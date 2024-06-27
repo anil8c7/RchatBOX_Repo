@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./signup.css";
-import { signup } from "../../Services/apiService";
+import { signup } from "../../Services/authService";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -43,7 +43,7 @@ const SignUp = () => {
         }
         try{
             const response = await signup(formData); 
-            setMessage(response.data.message);
+            setMessage(response.message);
             if(response.data.status===201){
                     setTimeout(()=>{
                         navigate('/');
@@ -71,15 +71,15 @@ const SignUp = () => {
                             </div>
                             <form action="#" method="post" onSubmit={handleSubmit}>
                                 <div className="forms-group">
-                                    <label htmlFor="email">Name:</label>
+                                    <label htmlFor="email">Name</label>
                                     <input type="text" className={errorClass.name ? "error_msg_req":""} id="name" name="name" onChange={handleChange} />
                                 </div>
                                 <div className="forms-group">
-                                    <label htmlFor="email">Email:</label>
+                                    <label htmlFor="email">Email</label>
                                     <input type="email" id="email" className={errorClass.email ? "error_msg_req":""} name="email" onChange={handleChange} />
                                 </div>
                                 <div className="forms-group">
-                                    <label htmlFor="password">Password:</label>
+                                    <label htmlFor="password">Password</label>
                                     <input type="password" id="password" className={errorClass.password ? "error_msg_req":""} name="password" autoComplete="" onChange={handleChange} />
                                 </div>
                                 <div className="signUpBtnDiv">

@@ -1,29 +1,32 @@
-import React,{ useState } from "react";
-import "./login.css";
+import React, { useState } from 'react'
 import { signin } from "../../Services/authService";
-// import { useNavigate } from "react-router-dom";
+import "./userlogin.css";
+import MobileCodeSelect from '../MoblieCodeSelect/MobileCodeSelect';
+function UserLogin() {
 
-const Login = () => {
     const [message, setMessage] = useState("");
     const [errorClass, setErrorClass] = useState("");
     const [formData, setFormData] = useState({
-        email: "",
-        password: ""
+        mobileCode:'',
+        phoneNumber: "",
     });
-    const validateLoginForm = (formData)=>{  
-        const newErrors ={};
-        if(formData.email ===""){
-            newErrors.email = "email is required"
-        }
-        if(formData.password ===""){
-            newErrors.password = "password is required"
-        }
+    const validateLoginForm = (formData) => {
+        const newErrors = {};
+        if (formData.phoneNumber === "") {
+            newErrors.phoneNumber = "Phone Number is required"
+        }else{
+            const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+            if(!phoneRegex.test(formData.phoneNumber)){
+                newErrors.phoneNumber = "Invalid Mobile Nummber"
+                setMessage("Invalid Mobile Number")
+            }
+        } 
         return newErrors;
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newError = validateLoginForm(formData);
-        if(Object.keys(newError).length>0){
+        if (Object.keys(newError).length > 0) {
             setErrorClass(newError);
             return;
         }
@@ -38,7 +41,7 @@ const Login = () => {
         setErrorClass((prevErrors) => ({
             ...prevErrors,
             [e.target.name]: '',
-          }));
+        }));
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
     return (
@@ -48,23 +51,22 @@ const Login = () => {
                     <div className="loginMainDiv">
                         <div className="loginForm">
                             <div className="loginUpheading">
-                                <h2>Login Form</h2>
+                                <h2>User Login Form</h2>
                             </div>
                             <form action="#" method="post" onSubmit={handleSubmit}>
-                                <div className="form-group">
-                                    <label htmlFor="email">Email</label>
-                                    <input type="email" id="email" className={errorClass.email ? "error_msg_req":""} name="email" onChange={handleChange} />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="password">Password</label>
-                                    <input type="password" id="password"className={errorClass.password ? "error_msg_req":""}  name="password" autoComplete="" onChange={handleChange} />
+                                <div className="row">
+                                    <div className='col-1'>
+                                        <select name="mobileCode" id="mobileCode" value={formData.mobileCode} onChange={handleChange}>
+                                        <MobileCodeSelect />
+                                        </select>
+                                        
+                                    </div>
+                                    <div className="col-2">
+                                        <input type="text" id="phoneNumber" placeholder="Enter Phone Number" className={errorClass.phoneNumber ? "error_msg_req" : ""} name="phoneNumber" onChange={handleChange} />
+                                    </div>
                                 </div>
                                 <div className="loginBtnDiv">
                                     <button type="submit" className="loginBtn">Login</button>
-                                </div>
-                                <div className="alreadyAccount">
-                                    <span>Don't have an account </span>
-                                    <a href="/signup">Sign up</a>
                                 </div>
                             </form>
                         </div>
@@ -73,9 +75,10 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
-                {message && <div className="error-message">{message}</div>}
-            </div>
+                <div className={`error-message ${message ? 'visible' : ''}`}>{message}</div>
+                </div>
         </>
     );
 }
-export default Login;
+
+export default UserLogin
