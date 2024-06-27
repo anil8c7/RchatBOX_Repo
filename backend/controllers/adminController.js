@@ -26,7 +26,7 @@ router.post('/signup', async (req, resp) => {
                     };
                     return resp.status(409).json(data);
                 } else {
-                    const newUser = await userModel.createUser(name, email, password);
+                    const newUser = await userModel.createUser(name, email, password,'admin');
                     const data = {
                         status: 201,
                         message: 'User Created'
@@ -78,7 +78,6 @@ router.post('/signin', async (req, resp) => {
                     let sessionId = uuidv4();
                     const author = new Authentication();
                     author.setUser(sessionId,user);
-                    // cookie set
                     resp.setHeader('Content-Type', 'text/html');
                     resp.cookie('X-uid',sessionId, {httpOnly: true, sameSite: 'none', secure: true,})
                     resp.setHeader('X-uid',sessionId);

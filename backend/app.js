@@ -14,13 +14,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({extended:true}));
 app.use(cors({
     origin: 'http://localhost:3000',
-    // methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'X-uid'],
     exposedHeaders:'X-uid',
     credentials: true 
 }));
 app.options('*', cors());
   app.use(cookieParser());
-app.use('/', adminRoutes);
+app.use('/admin', adminRoutes);
 app.use('/users', userRoutes);
 const port = config.server.PORT;
 app.listen(port, (err) => {
