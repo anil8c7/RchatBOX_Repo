@@ -6,8 +6,6 @@ const { v4: uuidv4 } = require('uuid');
 const Authentication = require('../services/auth');
 
 
-
-
 router.post('/signup', async (req, resp) => {
     const { name, email, password } = req.body;
     const data = {
