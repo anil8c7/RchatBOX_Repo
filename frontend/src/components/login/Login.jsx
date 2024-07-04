@@ -1,9 +1,10 @@
 import React,{ useState } from "react";
 import "./login.css";
 import { signin } from "../../Services/authService";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const navigate = useNavigate();
     const [message, setMessage] = useState("");
     const [errorClass, setErrorClass] = useState("");
     const [formData, setFormData] = useState({
@@ -30,6 +31,9 @@ const Login = () => {
         try {
             const response = await signin(formData);
             setMessage(response.message);
+            if(response.status==201){
+                navigate('/chat');
+            }
         } catch (error) {
             setMessage(error.response.data.message);
         }
