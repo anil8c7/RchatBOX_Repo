@@ -43,15 +43,16 @@ const SignUp = () => {
         }
         try{
             const response = await signup(formData); 
+            console.log(response);
             setMessage(response.message);
-            if(response.data.status===201){
+            if(response.status===201){
                     setTimeout(()=>{
                         navigate('/');
                     },2000)
             }
         } catch(error){
             if (error.response) {
-                if(error.response.data.status===400){
+                if(error.response.status===400){
                     // setErrorClass("error_msg_req");
                 }
                 setMessage(error.response.data.message);

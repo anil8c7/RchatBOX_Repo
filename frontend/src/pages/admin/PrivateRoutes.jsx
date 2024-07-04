@@ -2,7 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom';
 
 const PrivateRoutes = ()=> {
-    let userlogin = true;
+    let userlogin = localStorage.getItem('uid');
     if(userlogin){
         return <Outlet />;
     }else{
