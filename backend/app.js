@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const config = require('./config/config');
 const adminRoutes = require('./routes/admin');
 const userRoutes = require('./routes/user');
+const restrictedUserOnly =  require('./middleware/auth');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -20,8 +21,8 @@ app.use(cors({
 }));
 app.options('*', cors());
   app.use(cookieParser());
-app.use('/admin', adminRoutes);
-app.use('/users', userRoutes);
+app.use('/', adminRoutes);
+app.use('/users',restrictedUserOnly,userRoutes);
 const port = config.server.PORT;
 app.listen(port, (err) => {
     if (err) {

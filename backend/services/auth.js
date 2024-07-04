@@ -9,5 +9,7 @@ class Authentication {
         return this.sessionIdUserMap.get(id);
     }
 }
+const instance = new Authentication();
+Object.freeze(instance);
 
-module.exports = Authentication;
+module.exports = instance;

@@ -3,7 +3,7 @@ const router = express.Router();
 const userModel = require('../model/userModel');
 const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
-const Authentication = require('../services/auth');
+const authentication = require('../services/auth');
 
 
 router.post('/signup', async (req, resp) => {
@@ -74,10 +74,8 @@ router.post('/signin', async (req, resp) => {
                 const passwordMatch = await bcrypt.compare(password, dbpassword);
                 if (passwordMatch) {
                     let sessionId = uuidv4();
-                    const author = new Authentication();
-                    author.setUser(sessionId,user);
+                    authentication.setUser(sessionId,user);
                     resp.setHeader('Content-Type', 'text/html');
-                    resp.cookie('X-uid',sessionId, {httpOnly: true, sameSite: 'none', secure: true,})
                     resp.setHeader('X-uid',sessionId);
                     const data = {
                         status: 201,
