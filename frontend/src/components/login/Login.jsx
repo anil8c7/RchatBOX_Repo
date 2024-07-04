@@ -31,9 +31,11 @@ const Login = () => {
         try {
             const response = await signin(formData);
             setMessage(response.message);
-            if(response.status==201){
-                navigate('/chat');
-            }
+            if(response.status===201){
+                setTimeout(()=>{
+                    navigate('/chat');
+                },2000)
+        }
         } catch (error) {
             setMessage(error.response.data.message);
         }
