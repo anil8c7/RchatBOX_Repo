@@ -1,7 +1,6 @@
 const authentication =  require('../services/auth');
  const restrictedUserOnly = (req, resp, next) =>{
     const uid = req.headers['x-uid'] ? req.headers['x-uid']:"";
-   console.log(uid)
     if(!uid) {
         const data = {
             status: 403,
