@@ -4,17 +4,17 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const config = require('./config/config');
 const adminRoutes = require('./routes/admin');
-const userRoutes = require('./routes/user');
 const chatRoutes = require('./routes/chat');
-const restrictedUserOnly =  require('./middleware/auth');
+const messageRoutes = require('./routes/message');
+// const restrictedUserOnly =  require('./middleware/auth');
 
 const app = express();
 app.set('view engine', 'ejs');
 //  to use the static routes in the project like want to fetch data from the assets folder 
 // app.use(express.static('assets'));
  
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json({extended:true}));
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cors({
     origin: 'http://localhost:3000',
     allowedHeaders: ['Content-Type', 'X-uid'],
@@ -22,10 +22,11 @@ app.use(cors({
     credentials: true 
 }));
 app.options('*', cors());
-  app.use(cookieParser());
+app.use(cookieParser());
 app.use('/', adminRoutes);
-app.use('/users',restrictedUserOnly,userRoutes);
-app.use('/',restrictedUserOnly,chatRoutes);
+app.use('/chat',chatRoutes);
+app.use('/',messageRoutes);
+// app.use('/users', userRoutes);
 const port = config.server.PORT;
 app.listen(port, (err) => {
     if (err) {

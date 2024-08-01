@@ -106,6 +106,7 @@ router.post('/signin', async (req, resp) => {
             return resp.status(400).json(data);
         }
     } catch (error) {
+        console.log(error);
  const data = {
             status: 500,
             message: error.message 
