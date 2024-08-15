@@ -1,9 +1,11 @@
-import React,{ useState } from "react";
+import React,{ useContext,useState } from "react";
 import "./login.css";
 import { signin } from "../../Services/authService";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/userContext";
 
 const Login = () => {
+    const { setUserId } = useContext(UserContext);
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
     const [errorClass, setErrorClass] = useState("");
@@ -31,6 +33,7 @@ const Login = () => {
         try {
             const response = await signin(formData);
             setMessage(response.message);
+            setUserId(response.userId);
             if(response.status===201){
                 setTimeout(()=>{
                     navigate('/chat');

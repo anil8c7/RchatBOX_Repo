@@ -1,21 +1,53 @@
-import React from 'react'
-import "./chatbox.css"
+// Chatbox.jsx
+import { React, useState } from 'react';
+import "./chatbox.css";
+import ChatBoxSidebar from './chatBoxSidebar';
+import { createChats } from '../../Services/authService';
+
 function Chatbox() {
-  return (
-<>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h2>Chat Room</h2>
-        </div>
-        <div class="chat-messages" id="chat-messages">
-        </div>
-        <div class="chat-input">
-            <input type="text" id="message-input" placeholder="Type your message..."/>
-            <button onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-</>  
-);
+    const [formData, setFormData] = useState({
+        friendId: "",
+        userId: ""
+    });
+    const handleCreateChat = async (friendId, userId) => {                
+        setFormData({
+            friendId: friendId,
+            userId: userId
+        });
+        const response = await createChats(formData);
+        console.log(response);
+        
+        if(response.status===201){
+            console.log('created');
+        }else{
+            console.log('not Created');
+        }
+    };
+
+    return (
+        <>
+            <div className="container">
+                <ChatBoxSidebar handleCreateChat={handleCreateChat} /> 
+                <div className="chat-box">
+                    <div className="chat-header">
+                        <p>Chat with User 1</p>
+                    </div>
+                    <div className="chat-messages">
+                        <div className="message received">
+                            <p>Hello!</p>
+                        </div>
+                        <div className="message sent">
+                            <p>Hi there!</p>
+                        </div>
+                    </div>
+                    <div className="chat-input">
+                        <input type="text" placeholder="Type a message" />
+                        <button>Send</button>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
 }
 
-export default Chatbox
+export default Chatbox;

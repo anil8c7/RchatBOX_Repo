@@ -13,5 +13,12 @@ header:{
         throw error;
     }
 }
-
-export {postData};
+const getData = async (url) => {
+    try {
+        const response = await client.get(url);
+        return response;
+    } catch (error) {
+        throw new Error(`Failed to fetch data from ${url}: ${error.message}`);
+    }
+};
+export {postData,getData};

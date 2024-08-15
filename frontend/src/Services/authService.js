@@ -1,4 +1,4 @@
-import {postData} from './apiService';
+import {postData,getData} from './apiService';
 
 const signin = async (data)=>{
 try {
@@ -17,4 +17,29 @@ const signup = async (data)=>{
     } catch (error) {
         throw error;
     }}
-export {signin,signup};
+    const getUserchats =  async(userId)=>{
+        try {
+            const response =  await getData(`/chat/getUserchats/${userId}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    }
+    const createChats =  async (data) =>{
+        try {
+            const response  = await postData(`/chat/createChat`,data);
+            return response.data;
+        } catch (error) {
+            throw error
+        }
+    }
+    const getUsersOnSearch =  async (query) =>{
+        try {
+            const response =  await getData(`/chat/getUsersOnSearch/${query}`);
+            return response.data;
+        } catch (error) {
+            throw error
+        }
+    }
+export {signin,signup,getUserchats,createChats,getUsersOnSearch};
+
