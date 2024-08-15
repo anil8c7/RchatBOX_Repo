@@ -43,7 +43,7 @@ async function createUser(name, email, password) {
 }
  async function signInUser(email) {
             return new Promise((resolve, reject) => {
-                const query = 'SELECT email,password FROM admin WHERE email=? AND status = ?';
+                const query = 'SELECT id,email,password FROM admin WHERE email=? AND status = ?';
                 const value = [email,1];
                 dbConn.query(query, value, async (err, result) => {
                     if (err) {

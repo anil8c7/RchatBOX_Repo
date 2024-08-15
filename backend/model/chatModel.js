@@ -1,3 +1,4 @@
+const { search } = require('../controllers/chatController');
 const dbConn = require('../db/dbConnection');
 
 function checkUserExist(id) {
@@ -44,14 +45,32 @@ function createOrGetchat(userId, friendId) {
         });
     });
 }
-
 function getUserChats(userId) {
     return new Promise((resolve, reject) => {
-        const query = "SELECT * from chats WHERE userId = ?";
+        const query = "SELECT chats.*,admin.name from chats JOIN admin on chats.friendId = admin.id WHERE userId = ?";
         const value = [userId];
         dbConn.query(query, value, (error, result) => {
-
+            if(error){
+                reject(new Error(`Database insert error: ${error.message}`));
+            }else{
+                resolve(result);
+            }
         })
     })
 }
-module.exports = { checkUserExist, createOrGetchat, getUserChats }
+function searchUser(searchQuery) {
+    return new Promise((resolve, reject) => {
+        const sqlQuery = `SELECT * FROM admin WHERE admin.name LIKE ? OR admin.phone LIKE ?`;
+        const values = [`%${searchQuery}%`, `%${searchQuery}%`];
+        
+        dbConn.query(sqlQuery, values, (error, result) => {
+            if (error) {
+                reject(new Error(`Database error: ${error.message}`));
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+module.exports = { checkUserExist, createOrGetchat, getUserChats,searchUser }

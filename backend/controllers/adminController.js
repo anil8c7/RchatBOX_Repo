@@ -24,7 +24,7 @@ router.post('/signup', async (req, resp) => {
                     };
                     return resp.status(409).json(data);
                 } else {
-                    const newUser = await userModel.createUser(name, email, password,'admin');
+                    const newUser = await userModel.createUser(name, email, password, 'admin');
                     const data = {
                         status: 201,
                         message: 'User Created'
@@ -51,7 +51,7 @@ router.post('/signup', async (req, resp) => {
     catch (error) {
         const data = {
             status: 500,
-            message: error.message 
+            message: error.message
         };
         return resp.status(500).json(data);
     }
@@ -74,11 +74,12 @@ router.post('/signin', async (req, resp) => {
                 const passwordMatch = await bcrypt.compare(password, dbpassword);
                 if (passwordMatch) {
                     let sessionId = uuidv4();
-                    authentication.setUser(sessionId,user);
+                    authentication.setUser(sessionId, user);
                     resp.setHeader('Content-Type', 'text/html');
-                    resp.setHeader('X-uid',sessionId);
+                    resp.setHeader('X-uid', sessionId);
                     const data = {
                         status: 201,
+                        userId: user[0].id,
                         message: "User Login Successfully"
                     };
                     return resp.status(201).json(data);
@@ -98,7 +99,7 @@ router.post('/signin', async (req, resp) => {
                 };
                 return resp.status(409).json(data);
             }
-        }else{
+        } else {
             const data = {
                 status: 400,
                 message: "All fields are required"
@@ -107,9 +108,9 @@ router.post('/signin', async (req, resp) => {
         }
     } catch (error) {
         console.log(error);
- const data = {
+        const data = {
             status: 500,
-            message: error.message 
+            message: error.message
         };
         return resp.status(500).json(data);
     }
