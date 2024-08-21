@@ -25,7 +25,7 @@ app.options('*', cors());
 app.use(cookieParser());
 app.use('/', adminRoutes);
 app.use('/chat',chatRoutes);
-app.use('/',messageRoutes);
+app.use('/message',messageRoutes);
 // app.use('/users', userRoutes);
 const port = config.server.PORT;
 app.listen(port, (err) => {
